@@ -1,9 +1,10 @@
-const Card = (props) => {
+const Card = ({name, age, click}) => {  
+
   return (
     <div className="card">
-      <p>Name: {props.name}</p>
-      <p>Title: {props.title}</p>
-      <p>Age: {props.age}</p>
+      <p>Name: {name}</p>
+      <p>Age: {age}</p>
+      <button onClick={click}>remove</button>
     </div>
   );
 };
