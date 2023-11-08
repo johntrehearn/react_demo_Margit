@@ -4,6 +4,13 @@ import Header from "./Header";
 import Footer from "./Footer";
 import img from "./assets/react.svg";
 
+function Greeting({name}){
+  if (name === 'Margit') {
+    return <p>Welcome {name}</p>
+  }
+  return <p>Please log in</p>
+}
+
 function App() {
   const [persons, setPersons] = useState([
     { id: 1, name: "Margit", title: "CEO", age: 29 },
@@ -20,6 +27,7 @@ function App() {
     <>
       <Header logo="Margit Tennosaar" />
       <main>
+        <Greeting name="Margit"/>
         <h2>This is my application</h2>
         <img src={img} alt="something" />
         <div className="cards">
