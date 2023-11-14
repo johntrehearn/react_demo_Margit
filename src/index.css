@@ -106,3 +106,9 @@ main {
 .blue-age {
   color:blue
 }
+
+input{
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0.5rem
+}
