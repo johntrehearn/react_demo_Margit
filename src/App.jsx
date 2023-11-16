@@ -1,15 +1,10 @@
 import { useState } from 'react';
-import Card from './Card';
-import Header from './Header';
-import Footer from './Footer';
-import img from './assets/react.svg';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-function Greeting({ name }) {
-  if (name === 'Margit') {
-    return <p>Welcome {name}</p>;
-  }
-  return <p>Please log in</p>;
-}
+import Root from './routes/Root';
+import Home from './routes/Home';
+import Persons from './routes/Persons';
+import ErrorPage from './routes/ErrorPage';
 
 function App() {
   const [persons, setPersons] = useState([
@@ -28,25 +23,31 @@ function App() {
     setSearch(e.target.value);
   };
 
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Root />,
+      errorElement: <ErrorPage />,
+      children: [
+        { path: '/', element: <Home /> },
+        {
+          path: '/persons',
+          element: (
+            <Persons
+              search={search}
+              persons={persons}
+              removeHandler={removeHandler}
+              searchHandler={searchHandler}
+            />
+          ),
+        },
+      ],
+    },
+  ]);
+
   return (
     <>
-      <Header logo="Margit Tennosaar" />
-      <main>
-        <Greeting name="Margit" />
-        <h2>This is my application</h2>
-        <img src={img} alt="something" />
-        <input type="text" onChange={searchHandler} />
-        <div className="cards">
-          {persons
-            .filter((el) =>
-              el.name.toLowerCase().includes(search.toLowerCase())
-            )
-            .map((el) => (
-              <Card key={el.id} {...el} click={() => removeHandler(el.id)} />
-            ))}
-        </div>
-      </main>
-      <Footer copyright="Copyright some cool stuff" />
+      <RouterProvider router={router} />
     </>
   );
 }
